@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최유준 — Portfolio</title>
+
+<!-- 폰트 설정 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#13151C;      
+  --panel:#1B1E27;      
+  --panel-2:#232733;
+  --line:#2E323F;       
+  --ink:#ECEEF4;        
+  --mut:#868DA0;        
+  --key:#E7A13C;        
+  --key-soft:rgba(231,161,60,.14);
+  --focus:#5B9DFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+video{max-width:100%;display:block}
+.mono{font-family:"IBM Plex Mono",monospace;letter-spacing:.02em}
+
+/* 레이아웃 */
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{padding:96px 0}
+
+/* 섹션 라벨 */
+.eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mut);
+  margin-bottom:36px;
+}
+.eyebrow .tc{color:var(--key)}
+.eyebrow::before{content:"";width:9px;height:9px;background:var(--key);
+  transform:rotate(45deg);flex:none}
+.eyebrow .rule{flex:1;height:1px;background:var(--line)}
+
+/* 상단 컨트롤 바 */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(19,21,28,.82);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Archivo",sans-serif;
+  font-weight:800;letter-spacing:.02em}
+.brand .kf{width:11px;height:11px;background:var(--key);transform:rotate(45deg)}
+nav{display:flex;gap:26px;font-family:"IBM Plex Mono",monospace;font-size:.82rem}
+nav a{color:var(--mut);transition:color .2s}
+nav a:hover{color:var(--ink)}
+
+/* 히어로 */
+.hero{padding:120px 0 84px;position:relative}
+.hero h1{
+  font-family:"Archivo",sans-serif;font-weight:800;
+  font-size:clamp(2.6rem,7vw,5.4rem);line-height:1.02;
+  letter-spacing:-.02em;
+}
+.hero h1 em{font-style:normal;color:var(--key)}
+.hero .role{
+  margin-top:22px;font-family:"IBM Plex Mono",monospace;
+  color:var(--mut);font-size:clamp(.85rem,1.6vw,1rem);letter-spacing:.03em;
+}
+.hero .lede{margin-top:26px;max-width:540px;color:#C3C8D4;font-size:1.08rem}
+
+.track{margin-top:48px;position:relative;height:2px;background:var(--line);max-width:640px}
+.track .fill{position:absolute;left:0;top:0;height:100%;background:var(--key);width:38%}
+.track .kf{position:absolute;top:50%;width:11px;height:11px;
+  background:var(--bg);border:2px solid var(--key);transform:translate(-50%,-50%) rotate(45deg)}
+.track .kf.solid{background:var(--key)}
+.track .head{position:absolute;top:50%;transform:translate(-50%,-50%);
+  width:2px;height:22px;background:var(--ink);left:38%}
+.tc-row{display:flex;justify-content:space-between;max-width:640px;
+  margin-top:12px;font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--mut)}
+
+/* 작업물 필터 & 뒤로가기 */
+.work-header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 15px;}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+  padding:8px 16px;border:1px solid var(--line);border-radius:2px;
+  background:transparent;color:var(--mut);cursor:pointer;transition:.18s;
+}
+.chip:hover{color:var(--ink);border-color:var(--mut)}
+.chip[aria-pressed="true"]{background:var(--key-soft);color:var(--key);border-color:var(--key)}
+
+.back-btn {
+  display: none; font-family: "IBM Plex Mono", monospace; font-size: 0.8rem;
+  background: var(--panel-2); color: var(--key); border: 1px solid var(--key);
+  padding: 8px 14px; border-radius: 2px; cursor: pointer; transition: 0.2s;
+}
+.back-btn:hover { background: var(--key); color: var(--bg); }
+
+/* 작업물 그리드 */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:4px;
+  overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s;
+  display: flex; flex-direction: column;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--key)}
+.card:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.thumb{
+  aspect-ratio:16/10;position:relative;display:flex;
+  align-items:flex-end;padding:16px;overflow:hidden;
+  background-color: #1a1e29;
+  background-size: cover;
+  background-position: center;
+}
+/* 썸네일 가독성을 위한 오버레이 */
+.thumb::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+  z-index: 1;
+}
+
+.thumb-inner {
+  position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center; padding: 10px;
+  opacity: 0; transition: opacity 0.2s;
+}
+.thumb:hover .thumb-inner { opacity: 1; background: rgba(0,0,0,0.4); border-radius: 4px; }
+
+.thumb-inner .tool-title {
+  font-family: "Archivo", sans-serif; font-weight: 800; font-size: 1.1rem;
+  color: #fff; letter-spacing: 0.05em; margin-bottom: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+.thumb-inner .tool-desc {
+  font-family: "IBM Plex Mono", monospace; font-size: 0.7rem;
+  color: rgba(255,255,255,0.8); text-transform: uppercase;
+}
+
+.thumb .play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:44px;height:44px;background:rgba(0,0,0,0.6);
+  border:2px solid rgba(255,255,255,0.8);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;opacity:0.9;transition:.2s;z-index:3;
+}
+.card:hover .thumb .play{transform:translate(-50%,-50%) scale(1.1);background:var(--key);border-color:var(--key)}
+.thumb .play::after{content:"";border-left:10px solid #fff;
+  border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+
+.cat-tag{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.95);
+  background:rgba(0,0,0,.7);padding:4px 9px;border-radius:2px;z-index:3;position:absolute;top:14px;left:14px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.meta{padding:16px 18px 18px}
+.meta h3{font-family:"Archivo",sans-serif;font-weight:600;font-size:1.02rem;line-height:1.4}
+.meta .sub{margin-top:6px;font-family:"IBM Plex Mono",monospace;
+  font-size:.74rem;color:var(--mut);display:flex;gap:14px}
+
+/* 모달 팝업 스타일 */
+.modal {
+  display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+  width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+  justify-content: center; align-items: center; padding: 20px; flex-direction: column;
+}
+.modal-box {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+  max-width: 800px; width: 100%; padding: 24px; text-align: center; position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center;
+}
+.modal-box .preview-container {
+  width: 100%; height: 60vh; background: #000; border-radius: 4px;
+  display: flex; justify-content: center; align-items: center; margin-bottom: 14px;
+  border: 1px solid var(--line); position: relative; overflow: hidden;
+}
+.modal-box .preview-container img {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+}
+.modal-box h3 { font-family: "Archivo", sans-serif; font-size: 1.3rem; margin-bottom: 6px; color: var(--ink); }
+.modal-close {
+  position: absolute; top: 16px; right: 20px; color: #fff;
+  font-size: 28px; font-weight: bold; cursor: pointer; font-family: monospace; z-index: 10;
+}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start}
+.about p{color:#C3C8D4;margin-bottom:18px;max-width:56ch}
+.about p strong{color:var(--ink);font-weight:600}
+.spec{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:8px 22px}
+.spec .row{display:flex;justify-content:space-between;padding:15px 0;
+  border-bottom:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:.82rem}
+.spec .row:last-child{border-bottom:none}
+.spec .row .k{color:var(--mut)}
+.spec .row .v{color:var(--key);text-align:right}
+
+/* CONTACT */
+.contact h2{font-family:"Archivo",sans-serif;font-weight:800;
+  font-size:clamp(2.0rem,5vw,3.4rem);letter-spacing:-.02em;line-height:1.05}
+.contact .info-box{margin-top:24px;display:flex;flex-direction:column;gap:8px;}
+.contact .phone{font-family:"IBM Plex Mono",monospace;font-size:1.1rem;color:var(--mut);}
+.contact .mail{display:inline-block;font-size:1.3rem;
+  border-bottom:2px solid var(--key);padding-bottom:4px;transition:.2s}
+.contact .mail:hover{color:var(--key)}
+.links{display:flex;gap:22px;margin-top:34px;font-family:"IBM Plex Mono",monospace;
+  font-size:.85rem;color:var(--mut);flex-wrap:wrap}
+.links a{transition:.2s}.links a:hover{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding:30px 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--mut)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+@media(max-width:880px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .about{grid-template-columns:1fr;gap:34px}
+  nav{display:none}
+  section{padding:72px 0}
+}
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- 상단 네비게이션 -->
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><span class="kf"></span>최유준</a>
+    <nav>
+      <a href="#work">WORK</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 히어로 섹션 -->
+<div id="top"></div>
+<section class="hero wrap">
+  <h1>상상을 현실의 장면으로<br><em>구현</em>합니다</h1>
+  <p class="role mono">UNREAL ENGINE · 3D · VIDEO · 2D</p>
+  <p class="lede">툴별 전문성을 바탕으로 실감형 콘텐츠와 에셋을 체계적으로 제작하고 있습니다.</p>
+
+  <div class="track" aria-hidden="true">
+    <div class="fill"></div>
+    <span class="kf solid" style="left:0%"></span>
+    <span class="kf" style="left:38%"></span>
+    <span class="kf" style="left:72%"></span>
+    <span class="kf solid" style="left:100%"></span>
+    <span class="head"></span>
+  </div>
+  <div class="tc-row mono"><span>00:00:00</span><span>01:12:04</span></div>
+</section>
+
+<!-- 작업물 섹션 -->
+<section id="work" class="wrap">
+  <div class="eyebrow"><span class="tc">01</span> TOOL ARCHIVE <span class="rule"></span></div>
+
+  <div class="work-header">
+    <div class="filters" role="group" aria-label="작업물 분류">
+      <button class="chip" data-filter="all" aria-pressed="true">전체보기</button>
+      <button class="chip" data-filter="tool-group" data-target="unreal" aria-pressed="false">UNREAL ENGINE</button>
+      <button class="chip" data-filter="tool-group" data-target="video" aria-pressed="false">VIDEO</button>
+      <button class="chip" data-filter="tool-group" data-target="3d" aria-pressed="false">3D TOOLS</button>
+      <button class="chip" data-filter="tool-group" data-target="2d" aria-pressed="false">2D</button>
+    </div>
+    <button class="back-btn" id="backBtn">← 전체 목록으로</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- ══ [1] UNREAL ENGINE 그룹 카드 ══ -->
+    <div class="card group-card" data-group="unreal" tabindex="0">
+      <div class="thumb" style="background:linear-gradient(135deg,#443a24,#231d12)">
+        <span class="cat-tag">UNREAL ENGINE (3건)</span>
+        <div class="thumb-inner">
+          <div class="tool-title">UNREAL ENGINE</div>
+          <div class="tool-desc">Cinematic & Game Project</div>
+        </div>
+      </div>
+      <div class="meta">
+        <h3>언리얼 엔진 프로젝트 모음</h3>
+        <div class="sub mono"><span>클릭하여 세부 영상 선택</span></div>
+      </div>
+    </div>
+
+    <!-- 언리얼 서브 항목 1 -->
+    <a class="card sub-item" data-parent="unreal" href="https://youtu.be/yOk96V6akSA" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="yOk96V6akSA">
+        <span class="cat-tag">UNREAL ENGINE</span>
+        <span class="play"></span>
+        <div class="thumb-inner"><div class="tool-title">ZOMBIE CITY</div><div class="tool-desc">Cinematic Movie</div></div>
+      </div>
+      <div class="meta">
+        <h3>도시에 퍼진 좀비 | Unreal Engine 시네마틱</h3>
+        <div class="sub mono"><span>YOUTUBE LINK</span></div>
+      </div>
+    </a>
+
+    <!-- 언리얼 서브 항목 2 -->
+    <a class="card sub-item" data-parent="unreal" href="https://youtu.be/ez8P8cJtls8" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="ez8P8cJtls8">
+        <span class="cat-tag">UNREAL ENGINE</span>
+        <span class="play"></span>
+        <div class="thumb-inner"><div class="tool-title">MINI GAME</div><div class="tool-desc">Blueprint Practice</div></div>
+      </div>
+      <div class="meta">
+        <h3>장애물 피하기 미니게임 | Unreal Engine Blueprint 실습</h3>
+        <div class="sub mono"><span>YOUTUBE LINK</span></div>
+      </div>
+    </a>
+
+    <!-- 언리얼 서브 항목 3 (수정됨) -->
+    <a class="card sub-item" data-parent="unreal" href="https://youtu.be/-lJh7LsZKzI" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="-lJh7LsZKzI">
+        <span class="cat-tag">UNREAL ENGINE</span>
+        <span class="play"></span>
+        <div class="thumb-inner"><div class="tool-title">CLEANROOM VR</div><div class="tool-desc">VR Experience</div></div>
+      </div>
+      <div class="meta">
+        <h3>반도체 클린룸 VR 체험</h3>
+        <div class="sub mono"><span>YOUTUBE LINK</span></div>
+      </div>
+    </a>
+
+
+    <!-- ══ [2] VIDEO 그룹 카드 ══ -->
+    <div class="card group-card" data-group="video" tabindex="0">
+      <div class="thumb" style="background:linear-gradient(135deg,#2a3b2a,#162216)">
+        <span class="cat-tag">VIDEO / EDITING (5건)</span>
+        <div class="thumb-inner">
+          <div class="tool-title">AE & PREMIERE</div>
+          <div class="tool-desc">Motion Graphics & Edit</div>
+        </div>
+      </div>
+      <div class="meta">
+        <h3>에프터이펙트 & 프리미어 영상 모음</h3>
+        <div class="sub mono"><span>클릭하여 세부 영상 선택</span></div>
+      </div>
+    </div>
+
+    <!-- 비디오 서브 항목들 -->
+    <a class="card sub-item" data-parent="video" href="https://youtu.be/4mVFyi13Dic" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="4mVFyi13Dic"><span class="cat-tag">AFTER EFFECTS</span><span class="play"></span><div class="thumb-inner"><div class="tool-title">LIGHT TRAIL</div><div class="tool-desc">Motion Graphics</div></div></div>
+      <div class="meta"><h3>텍스트 라이트 트레일 효과 | After Effects 실습</h3><div class="sub mono"><span>YOUTUBE LINK</span></div></div>
+    </a>
+    <a class="card sub-item" data-parent="video" href="https://youtu.be/URT3Yj2P4P0" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="URT3Yj2P4P0"><span class="cat-tag">AFTER EFFECTS</span><span class="play"></span><div class="thumb-inner"><div class="tool-title">APPLE CONCEPT</div><div class="tool-desc">Commercial Concept</div></div></div>
+      <div class="meta"><h3>Apple 광고 콘셉트 영상 | After Effects 실습</h3><div class="sub mono"><span>YOUTUBE LINK</span></div></div>
+    </a>
+    <a class="card sub-item" data-parent="video" href="https://youtu.be/FVvoDeXjFPk" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="FVvoDeXjFPk"><span class="cat-tag">AFTER EFFECTS</span><span class="play"></span><div class="thumb-inner"><div class="tool-title">FLUID FLOW</div><div class="tool-desc">Visual Effect</div></div></div>
+      <div class="meta"><h3>달빛 유체 흐름 효과 | After Effects · ChatGPT 활용 실습</h3><div class="sub mono"><span>YOUTUBE LINK</span></div></div>
+    </a>
+    <a class="card sub-item" data-parent="video" href="https://youtu.be/4sDfBJ0gE34" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="4sDfBJ0gE34"><span class="cat-tag">PREMIERE PRO</span><span class="play"></span><div class="thumb-inner"><div class="tool-title">360° VIDEO</div><div class="tool-desc">VR Content</div></div></div>
+      <div class="meta"><h3>360° 영상 콘텐츠 | 기획 및 제작</h3><div class="sub mono"><span>YOUTUBE LINK</span></div></div>
+    </a>
+    <a class="card sub-item" data-parent="video" href="https://youtube.com/shorts/Ql0mMP8Ix3c?feature=share" target="_blank" tabindex="0" style="display:none;">
+      <div class="thumb yt-thumb" data-yt="Ql0mMP8Ix3c"><span class="cat-tag">PREMIERE PRO</span><span class="play"></span><div class="thumb-inner"><div class="tool-title">AI SHORTS</div><div class="tool-desc">AI Generated</div></div></div>
+      <div class="meta"><h3>당신이 보지 못한 것 – 가능성 | AI 이미지·영상 콘텐츠</h3><div class="sub mono"><span>YOUTUBE SHORTS</span></div></div>
+    </a>
+
+
+    <!-- ══ [3] 3D TOOLS 그룹 카드 ══ -->
+    <div class="card group-card" data-group="3d" tabindex="0">
+      <div class="thumb" style="background:linear-gradient(135deg,#3a2a44,#1e1826)">
+        <span class="cat-tag">3D TOOLS (7건)</span>
+        <div class="thumb-inner">
+          <div class="tool-title">3D MODELING</div>
+          <div class="tool-desc">ZBrush · Maya · Substance</div>
+        </div>
+      </div>
+      <div class="meta">
+        <h3>지브러시, 마야, 서브스턴스 작업물</h3>
+        <div class="sub mono"><span>클릭하여 세부 에셋 보기</span></div>
+      </div>
+    </div>
+
+    <!-- 3D 서브 항목들 -->
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="Character Modeling" data-img="ZBrush/Character Modeling.png" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('ZBrush/Character Modeling.png');">
+        <span class="cat-tag">ZBRUSH</span>
+        <div class="thumb-inner"><div class="tool-title">CHARACTER</div><div class="tool-desc">Sculpting</div></div>
+      </div>
+      <div class="meta"><h3>Character Modeling</h3><div class="sub mono"><span>SCULPTING</span></div></div>
+    </div>
+    
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="Creature Head Sculpting" data-img="ZBrush/Creature Head Sculpting.png" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('ZBrush/Creature Head Sculpting.png');">
+        <span class="cat-tag">ZBRUSH</span>
+        <div class="thumb-inner"><div class="tool-title">CREATURE HEAD</div><div class="tool-desc">Detailing</div></div>
+      </div>
+      <div class="meta"><h3>Creature Head Sculpting</h3><div class="sub mono"><span>DETAILING</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="Fantasy Axe Sculpting" data-img="ZBrush/Fantasy Axe Sculpting.png" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('ZBrush/Fantasy Axe Sculpting.png');">
+        <span class="cat-tag">ZBRUSH</span>
+        <div class="thumb-inner"><div class="tool-title">FANTASY AXE</div><div class="tool-desc">Prop Sculpt</div></div>
+      </div>
+      <div class="meta"><h3>Fantasy Axe Sculpting</h3><div class="sub mono"><span>PROP SCULPT</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="Mushroom Character Sculpting" data-img="ZBrush/Mushroom Character Sculpting.png" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('ZBrush/Mushroom Character Sculpting.png');">
+        <span class="cat-tag">ZBRUSH</span>
+        <div class="thumb-inner"><div class="tool-title">MUSHROOM</div><div class="tool-desc">Character</div></div>
+      </div>
+      <div class="meta"><h3>Mushroom Character Sculpting</h3><div class="sub mono"><span>CHARACTER</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="Walkie-Talkie Modeling" data-img="ZBrush/Walkie-Talkie Modeling.png" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('ZBrush/Walkie-Talkie Modeling.png');">
+        <span class="cat-tag">ZBRUSH</span>
+        <div class="thumb-inner"><div class="tool-title">WALKIE-TALKIE</div><div class="tool-desc">Hard Surface</div></div>
+      </div>
+      <div class="meta"><h3>Walkie-Talkie Modeling</h3><div class="sub mono"><span>HARD SURFACE</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="3D Modeling & Asset Portfolio" data-img="maya/3D Modeling & Asset Portfolio.png" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('maya/3D Modeling & Asset Portfolio.png');">
+        <span class="cat-tag">MAYA</span>
+        <div class="thumb-inner"><div class="tool-title">MAYA ASSET</div><div class="tool-desc">3D Asset Creation</div></div>
+      </div>
+      <div class="meta"><h3>3D Modeling & Asset Portfolio</h3><div class="sub mono"><span>3D ASSET CREATION</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="3d" data-title="Character Texturing" data-img="Adobe Substance 3D Painter/Character Texturing.jpg" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('Adobe Substance 3D Painter/Character Texturing.jpg');">
+        <span class="cat-tag">SUBSTANCE</span>
+        <div class="thumb-inner"><div class="tool-title">TEXTURING</div><div class="tool-desc">Substance Painter</div></div>
+      </div>
+      <div class="meta"><h3>Character Texturing</h3><div class="sub mono"><span>TEXTURING</span></div></div>
+    </div>
+
+
+    <!-- ══ [4] 2D 그룹 카드 ══ -->
+    <div class="card group-card" data-group="2d" tabindex="0">
+      <div class="thumb" style="background:linear-gradient(135deg,#243a4a,#16202b)">
+        <span class="cat-tag">PHOTOSHOP (5건)</span>
+        <div class="thumb-inner">
+          <div class="tool-title">PHOTOSHOP</div>
+          <div class="tool-desc">Poster & Graphic Design</div>
+        </div>
+      </div>
+      <div class="meta">
+        <h3>그래픽 디자인 및 포스터</h3>
+        <div class="sub mono"><span>클릭하여 세부 디자인 보기</span></div>
+      </div>
+    </div>
+
+    <!-- 2D 서브 항목들 -->
+    <div class="card sub-item img-modal-trigger" data-parent="2d" data-title="Cosmetic Product Advertisement" data-img="photoshop/Cosmetic Product Advertisement.jpg" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('photoshop/Cosmetic Product Advertisement.jpg');">
+        <span class="cat-tag">PHOTOSHOP</span>
+        <div class="thumb-inner"><div class="tool-title">COSMETIC AD</div><div class="tool-desc">Advertisement</div></div>
+      </div>
+      <div class="meta"><h3>Cosmetic Product Advertisement</h3><div class="sub mono"><span>ADVERTISEMENT</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="2d" data-title="Editorial Poster" data-img="photoshop/Editorial Poster.jpg" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('photoshop/Editorial Poster.jpg');">
+        <span class="cat-tag">PHOTOSHOP</span>
+        <div class="thumb-inner"><div class="tool-title">EDITORIAL</div><div class="tool-desc">Editorial Poster</div></div>
+      </div>
+      <div class="meta"><h3>Editorial Poster</h3><div class="sub mono"><span>EDITORIAL</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="2d" data-title="Fashion Week Poster Design" data-img="photoshop/Fashion Week Poster Design.jpg" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('photoshop/Fashion Week Poster Design.jpg');">
+        <span class="cat-tag">PHOTOSHOP</span>
+        <div class="thumb-inner"><div class="tool-title">FASHION WEEK</div><div class="tool-desc">Poster Design</div></div>
+      </div>
+      <div class="meta"><h3>Fashion Week Poster Design</h3><div class="sub mono"><span>POSTER DESIGN</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="2d" data-title="The Wonder of Insects" data-img="photoshop/The Wonder of Insects.jpg" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('photoshop/The Wonder of Insects.jpg');">
+        <span class="cat-tag">PHOTOSHOP</span>
+        <div class="thumb-inner"><div class="tool-title">INSECTS ART</div><div class="tool-desc">Visual Art</div></div>
+      </div>
+      <div class="meta"><h3>The Wonder of Insects</h3><div class="sub mono"><span>VISUAL ART</span></div></div>
+    </div>
+
+    <div class="card sub-item img-modal-trigger" data-parent="2d" data-title="Travel Poster Design" data-img="photoshop/Travel Poster Design.jpg" tabindex="0" style="display:none;">
+      <div class="thumb" style="background-image: url('photoshop/Travel Poster Design.jpg');">
+        <span class="cat-tag">PHOTOSHOP</span>
+        <div class="thumb-inner"><div class="tool-title">TRAVEL POSTER</div><div class="tool-desc">Travel Poster Design</div></div>
+      </div>
+      <div class="meta"><h3>Travel Poster Design</h3><div class="sub mono"><span>TRAVEL POSTER</span></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 이미지/콘텐츠 팝업 모달창 -->
+<div id="imageModal" class="modal">
+  <div class="modal-box">
+    <span class="modal-close">&times;</span>
+    <div class="preview-container" id="modalPreview">
+      <img id="modalImg" src="" alt="Preview Image">
+    </div>
+    <h3 id="modalTitle">작업물 제목</h3>
+  </div>
+</div>
+
+<!-- 소개 섹션 -->
+<section id="about" class="wrap">
+  <div class="eyebrow"><span class="tc">02</span> ABOUT <span class="rule"></span></div>
+  <div class="about">
+    <div>
+      <p><strong>Unreal, Maya, ZBrush, Substance Painter, Premiere, After Effects, Photoshop</strong> 등 각 툴을 활용해 실감형 콘텐츠를 제작하고 있습니다.</p>
+      <p>실감형 콘텐츠 제작과 그래픽 디자인 중심의 작업을 전개하고 있습니다.</p>
+    </div>
+  <div class="spec" aria-label="주요 정보">
+   <div class="row"><span class="k">ENGINE</span><span class="v">Unreal Engine 5</span></div>
+   <div class="row"><span class="k">3D TOOLS</span><span class="v">Maya · ZBrush · Substance</span></div>
+   <div class="row"><span class="k">VIDEO</span><span class="v">Premiere · After Effects</span></div>
+   <div class="row"><span class="k">2D</span><span class="v">Photoshop (포스터/그래픽)</span></div>
+  </div>
+  </div>
+</section>
+
+<!-- 연락처 섹션 -->
+<section id="contact" class="wrap contact">
+  <div class="eyebrow"><span class="tc">03</span> CONTACT <span class="rule"></span></div>
+  <h2>함께 만들<br>이야기가 있다면.</h2>
+  <div class="info-box">
+    <span class="phone mono">TEL. 010-7191-5782</span>
+    <a class="mail" href="mailto:jsm90735@naver.com">jsm90735@naver.com</a>
+  </div>
+  <div class="links">
+    <a href="#">VIMEO</a><a href="https://www.youtube.com/@ujc7610">YOUTUBE</a>
+    <a href="#">INSTAGRAM</a><a href="#">LINKEDIN</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 CHOI YUJUN</span>
+    <span>TOOL-BASED PORTFOLIO ARCHIVE</span>
+  </div>
+</footer>
+
+<script>
+// 유튜브 썸네일 자동 매핑
+document.querySelectorAll('.yt-thumb').forEach(thumb => {
+  const ytId = thumb.dataset.yt;
+  if(ytId) {
+    const imgUrl = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+    thumb.style.backgroundImage = `url('${imgUrl}')`;
+  }
+});
+
+const chips = document.querySelectorAll('.chip');
+const groupCards = document.querySelectorAll('.group-card');
+const subItems = document.querySelectorAll('.sub-item');
+const backBtn = document.getElementById('backBtn');
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+    chip.setAttribute('aria-pressed', 'true');
+    
+    const filterType = chip.dataset.filter;
+    
+    if (filterType === 'all') {
+      groupCards.forEach(card => card.style.display = 'flex');
+      subItems.forEach(item => item.style.display = 'none');
+      backBtn.style.display = 'none';
+    } else {
+      const targetGroup = chip.dataset.target;
+      openGroup(targetGroup);
+    }
+  });
+});
+
+groupCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const groupName = card.dataset.group;
+    openGroup(groupName);
+  });
+});
+
+function openGroup(groupName) {
+  chips.forEach(c => {
+    if (c.dataset.target === groupName) {
+      c.setAttribute('aria-pressed', 'true');
+    } else {
+      c.setAttribute('aria-pressed', 'false');
+    }
+  });
+
+  groupCards.forEach(card => card.style.display = 'none');
+  subItems.forEach(item => {
+    if (item.dataset.parent === groupName) {
+      item.style.display = 'flex';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+  
+  backBtn.style.display = 'inline-block';
+}
+
+backBtn.addEventListener('click', () => {
+  groupCards.forEach(card => card.style.display = 'flex');
+  subItems.forEach(item => item.style.display = 'none');
+  backBtn.style.display = 'none';
+  
+  chips.forEach(c => {
+    if (c.dataset.filter === 'all') c.setAttribute('aria-pressed', 'true');
+    else c.setAttribute('aria-pressed', 'false');
+  });
+});
+
+// 모달창 스크립트
+const modal = document.getElementById('imageModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalImg = document.getElementById('modalImg');
+const closeBtn = document.querySelector('.modal-close');
+
+document.querySelectorAll('.img-modal-trigger').forEach(item => {
+  item.addEventListener('click', () => {
+    const title = item.dataset.title;
+    const imgSrc = item.dataset.img;
+    
+    modalTitle.textContent = title;
+    modalImg.src = imgSrc;
+    modal.style.display = 'flex';
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
