@@ -231,6 +231,11 @@ footer{border-top:1px solid var(--line);padding:30px 0;
   .grid{grid-template-columns:1fr}
   .wrap{padding:0 20px}
 }
+
+body{font-family:'IBM Plex Sans','Malgun Gothic',sans-serif}section[id]{scroll-margin-top:90px}a:focus-visible,button:focus-visible{outline:2px solid var(--key);outline-offset:5px}.hero.wrap{padding:76px 28px 48px}.hero h1{font-size:clamp(2.4rem,5.1vw,4.3rem);line-height:1.22;letter-spacing:-.055em}.hero .lede{max-width:710px;margin-top:20px}.intro-kicker{color:var(--key);font-size:.75rem;letter-spacing:.16em;margin-bottom:20px}.hero-bottom{display:flex;justify-content:space-between;align-items:end;gap:24px}.hero .role{font-size:.75rem;margin-top:20px}.intro-link{font-size:.86rem;color:var(--key);white-space:nowrap}.featured.wrap{padding:32px 28px 90px}.feature-frame{border:1px solid var(--line);background:#191c24;overflow:hidden;border-radius:6px}.feature-visual{position:relative;display:block;overflow:hidden}.feature-visual img{display:block;width:100%;aspect-ratio:2.15;object-fit:cover;transition:transform .5s}.feature-visual:hover img{transform:scale(1.025)}.feature-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(12,14,18,.92))}.feature-stamp{position:absolute;top:22px;left:24px;z-index:2;padding:6px 11px;background:#13151ce6;border:1px solid #ffffff33;font-size:.7rem;letter-spacing:.08em}.feature-caption{position:absolute;left:32px;bottom:26px;z-index:2}.feature-caption h2{font:800 clamp(2.5rem,7vw,5.8rem)/1 'Archivo',sans-serif;letter-spacing:-.04em}.feature-caption p{margin-top:12px;font-size:1rem;color:#e3e4e9}.feature-body{padding:32px}.feature-top{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;padding-bottom:28px;border-bottom:1px solid var(--line)}.feature-top h3{font-size:1.28rem;line-height:1.6;letter-spacing:-.03em}.feature-top p{font-size:.94rem;color:#b7becd;margin-top:12px}.feature-facts{display:grid;grid-template-columns:70px 1fr;gap:10px 14px;font-size:.84rem;align-content:center}.feature-facts dt{color:var(--mut)}.feature-facts dd{margin:0}.contributions{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding:28px 0}.contribution-num{font-size:.7rem;color:var(--key);letter-spacing:.1em}.contributions h4{font-size:1rem;margin:9px 0}.contributions p{font-size:.85rem;color:#abb3c4;line-height:1.8}.feature-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap}.primary-action{display:inline-flex;align-items:center;gap:30px;padding:13px 20px;background:var(--key);color:#17191f;font-weight:700;font-size:.9rem;border:1px solid var(--key);border-radius:2px}.primary-action:hover{background:#f6b857}.secondary-action{font-size:.83rem;color:#c3c8d4;border-bottom:1px solid #596070;padding:5px 0}#work.wrap,#about.wrap,#contact.wrap{padding:64px 28px}.group-card .thumb-inner{opacity:1}.group-card .thumb{min-height:180px}.grid{grid-template-columns:repeat(2,1fr)}.archive-intro{color:#b7becd;margin:-16px 0 25px;font-size:.95rem}.modal-close{border:0;background:transparent}.spec .row{gap:18px}.hero .track,.hero .tc-row{display:none}
+@media(max-width:700px){.hero.wrap{padding:48px 20px 24px}.hero h1{font-size:2.5rem}.hero-bottom{display:block}.intro-link{display:inline-block;margin-top:20px}.featured.wrap{padding:28px 20px 40px}.feature-visual img{aspect-ratio:1.35}.feature-caption{left:20px;bottom:20px}.feature-caption h2{font-size:3.5rem}.feature-caption p{font-size:.85rem}.feature-stamp{left:16px;top:16px;font-size:.6rem}.feature-body{padding:22px}.feature-top{grid-template-columns:1fr;gap:22px}.contributions{grid-template-columns:1fr;gap:22px}.contributions article{border-bottom:1px solid var(--line);padding-bottom:18px}.feature-actions{gap:16px}.primary-action{width:100%;justify-content:space-between}#work.wrap,#about.wrap,#contact.wrap{padding:44px 20px}.grid{grid-template-columns:1fr}.bar nav{display:flex;gap:15px;font-size:.65rem}.bar nav a[href='#about']{display:none}.about{gap:20px}.feature-caption h2{font-size:clamp(2.5rem,12vw,3.5rem)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media(max-width:400px){.hero h1{font-size:1.95rem;word-break:keep-all}.hero .lede{font-size:.95rem}.intro-kicker{font-size:.65rem}}
 </style>
 </head>
 <body>
@@ -240,7 +245,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;
   <div class="wrap bar">
     <a class="brand" href="#top"><span class="kf"></span>최유준</a>
     <nav>
-      <a href="#work">WORK</a>
+      <a href="#featured">PROJECT</a><a href="#work">WORK</a>
       <a href="#about">ABOUT</a>
       <a href="#contact">CONTACT</a>
     </nav>
@@ -249,27 +254,14 @@ footer{border-top:1px solid var(--line);padding:30px 0;
 
 <!-- 히어로 섹션 -->
 <div id="top"></div>
-<section class="hero wrap">
-  <h1>상상을 현실의 장면으로<br><em>구현</em>합니다</h1>
-  <p class="role mono">UNREAL ENGINE · 3D · VIDEO · 2D</p>
-  <p class="lede">툴별 전문성을 바탕으로 실감형 콘텐츠와 에셋을 체계적으로 제작하고 있습니다.</p>
-
-  <div class="track" aria-hidden="true">
-    <div class="fill"></div>
-    <span class="kf solid" style="left:0%"></span>
-    <span class="kf" style="left:38%"></span>
-    <span class="kf" style="left:72%"></span>
-    <span class="kf solid" style="left:100%"></span>
-    <span class="head"></span>
-  </div>
-  <div class="tc-row mono"><span>00:00:00</span><span>01:12:04</span></div>
-</section>
+<section class="hero wrap"><p class="intro-kicker mono">CHOI YUJUN / INTERACTIVE CONTENTS</p><h1>상상을, 직접 경험하는<br><em>콘텐츠로 구현합니다.</em></h1><div class="hero-bottom"><div><p class="lede">Unreal Engine으로 인터랙션을 구현하고,<br>직접 플레이하며 사용자 경험을 다듬습니다.</p><p class="role mono">UNREAL ENGINE · BLUEPRINT · 3D · VIDEO</p></div><a class="intro-link" href="#featured">대표 프로젝트 살펴보기 ↓</a></div></section>
+<section id="featured" class="featured wrap"><div class="eyebrow"><span class="tc">01</span> SELECTED PROJECT <span class="rule"></span></div><div class="feature-frame"><a class="feature-visual" href="cleanpass.html" aria-label="Clean Pass 구현 과정 보기"><img src="cleanpass/02_cleanroom.jpg" alt="Unreal Engine으로 구현한 노란 조명의 반도체 클린룸"><span class="feature-stamp mono">FEATURED / UNREAL ENGINE 5 / PC VR</span><div class="feature-caption"><h2>Clean Pass</h2><p>반도체 클린룸 공정을 직접 체험하는 VR 교육 콘텐츠</p></div></a><div class="feature-body"><div class="feature-top"><div><h3>공정 순서에 맞춘 장비 조작부터<br>VR에서 발견한 문제의 개선까지.</h3><p>4인 팀에서 블루프린트를 활용한 장비 인터랙션과 콘텐츠 진행 기능을 구현했습니다. 헤드셋 테스트를 통해 조작과 진행 흐름을 점검했습니다.</p></div><dl class="feature-facts"><dt>담당</dt><dd>Unreal Engine 기능 구현 · VR 테스트</dd><dt>팀 구성</dt><dd>4인 협업 프로젝트</dd><dt>플랫폼</dt><dd>PC VR · Meta Quest + Link</dd><dt>사용 도구</dt><dd>Unreal Engine 5 · Blueprint</dd></dl></div><div class="contributions"><article><span class="contribution-num mono">01 / INTERACTION</span><h4>장비 인터랙션 구현</h4><p>스핀코터의 동작을 7단계 상태로 나누고, 공정 순서에 맞는 버튼만 반응하도록 구현했습니다.</p></article><article><span class="contribution-num mono">02 / LEARNING FLOW</span><h4>교육 진행 흐름 제어</h4><p>나레이션 단계에 따라 조작을 잠그고 해제해, 설명을 듣고 다음 공정으로 넘어가도록 구성했습니다.</p></article><article><span class="contribution-num mono">03 / VR TESTING</span><h4>실기기 문제 발견과 개선</h4><p>VR 실기기 테스트로 조작과 진행 흐름의 문제를 찾고, 수정 방향을 정한 뒤 재테스트로 개선 여부를 확인했습니다.</p></article></div><div class="feature-actions"><a class="primary-action" href="cleanpass.html">구현 과정 보기 <span aria-hidden="true">↗</span></a><a class="secondary-action" href="https://youtu.be/GTE6kcaMb_8" target="_blank" rel="noopener">VR 시연 영상 ↗</a><a class="secondary-action" href="https://youtu.be/-lJh7LsZKzI" target="_blank" rel="noopener">PC 시연 영상 ↗</a></div></div></div></section>
 
 <!-- 작업물 섹션 -->
 <section id="work" class="wrap">
-  <div class="eyebrow"><span class="tc">01</span> TOOL ARCHIVE <span class="rule"></span></div>
+  <div class="eyebrow"><span class="tc">02</span> MORE WORK <span class="rule"></span></div>
 
-  <div class="work-header">
+  <p class="archive-intro">시네마틱, 3D 에셋, 영상과 그래픽 작업을 함께 소개합니다.</p><div class="work-header">
     <div class="filters" role="group" aria-label="작업물 분류">
       <button class="chip" data-filter="all" aria-pressed="true">전체보기</button>
       <button class="chip" data-filter="tool-group" data-target="unreal" aria-pressed="false">UNREAL ENGINE</button>
@@ -523,7 +515,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;
 <!-- 이미지/콘텐츠 팝업 모달창 -->
 <div id="imageModal" class="modal">
   <div class="modal-box">
-    <span class="modal-close">&times;</span>
+    <button type="button" class="modal-close" aria-label="이미지 닫기">&times;</button>
     <div class="preview-container" id="modalPreview">
       <img id="modalImg" src="" alt="Preview Image">
     </div>
@@ -533,7 +525,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;
 
 <!-- 소개 섹션 -->
 <section id="about" class="wrap">
-  <div class="eyebrow"><span class="tc">02</span> ABOUT <span class="rule"></span></div>
+  <div class="eyebrow"><span class="tc">03</span> ABOUT <span class="rule"></span></div>
   <div class="about">
     <div>
       <p><strong>Unreal, Maya, ZBrush, Substance Painter, Premiere, After Effects, Photoshop</strong> 등 각 툴을 활용해 실감형 콘텐츠를 제작하고 있습니다.</p>
@@ -550,22 +542,22 @@ footer{border-top:1px solid var(--line);padding:30px 0;
 
 <!-- 연락처 섹션 -->
 <section id="contact" class="wrap contact">
-  <div class="eyebrow"><span class="tc">03</span> CONTACT <span class="rule"></span></div>
+  <div class="eyebrow"><span class="tc">04</span> CONTACT <span class="rule"></span></div>
   <h2>함께 만들<br>이야기가 있다면.</h2>
   <div class="info-box">
     <span class="phone mono">TEL. 010-7191-5782</span>
     <a class="mail" href="mailto:jsm90735@naver.com">jsm90735@naver.com</a>
   </div>
   <div class="links">
-    <a href="#">VIMEO</a><a href="https://www.youtube.com/@ujc7610">YOUTUBE</a>
-    <a href="#">INSTAGRAM</a><a href="#">LINKEDIN</a>
+    <a href="https://www.youtube.com/@ujc7610">YOUTUBE</a>
+    
   </div>
 </section>
 
 <footer>
   <div class="wrap foot">
     <span>© 2026 CHOI YUJUN</span>
-    <span>TOOL-BASED PORTFOLIO ARCHIVE</span>
+    <span>UNREAL ENGINE · INTERACTIVE CONTENTS</span>
   </div>
 </footer>
 
@@ -668,5 +660,5 @@ modal.addEventListener('click', (e) => {
   }
 });
 </script>
-</body>
+<script>document.querySelectorAll('.group-card,.img-modal-trigger').forEach(el=>{el.setAttribute('role','button');el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}})});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('imageModal').style.display='none';});</script></body>
 </html>
